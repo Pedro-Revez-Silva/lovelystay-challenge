@@ -23,6 +23,10 @@ class App extends Component {
     return fetch('https://api.github.com/users/Pedro-Revez-Silva/repos')
     .then(response => response.json())
     .then(response => {return response})
+
+    /*TO-DO
+    Implement fetch information for all the repos and update state with description.*/
+    
   }
 
   /* This method will fetch the user and repo information and update the state*/
