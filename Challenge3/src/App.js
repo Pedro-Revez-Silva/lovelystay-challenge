@@ -7,40 +7,32 @@ class App extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { user: '' }
+    this.state = { username: '' };
   }
 
-  getUserInformation(user) {
-    /*
-      TODO: fetch a user from the GitHub API
-
-      TIPS:
-       1) The Fetch API provides an interface for
-         fetching resources (including across the network).
-       2) Maybe you want to update the state here.
-    */
-    return fetch('https://api.github.com/users/${user}')
+  getUserInformation(username) {
+    return fetch('https://api.github.com/users/${username}')
     .then(response => response.json())
     .then(response => {return response;})
   }
   
-  getUserRepos(user){
-    return fetch('https://api.github.com/users/${user}/repos')
+  getUserRepos(username){
+    return fetch('https://api.github.com/users/${username}/repos')
     .then(response => response.json())
     .then(response => {return response;})
   }
 
+  
   async submitRequest(e){
     e.preventDefault();
-    let user = await this.getUserInformation(this.refs.user.value);
+    let user = await this.getUserInformation(this.refs.username.value);
     this.setState({avatar_url: user.avatar_url, 
-      username: 
-      user.login, 
+      username: user.login, 
       followers: user.followers,
       following: user.following,
       url: user.url,
     });
-    let repo = await this.getUserRepos(this.refs.user.value);
+    let repo = await this.getUserRepos(this.refs.username.value);
         this.setState({ name: repo.name,
         description: repo.description,
         git_url: repo.git_url,
@@ -53,6 +45,32 @@ class App extends Component {
 
 
   render() {
+    let user;
+    if(this.state.username) {
+      user = 
+      <div className="resultBadge">
+        <img src={this.state.avatar_url}/>
+        <p className="userInfo">
+         Username: <br/>
+         {this.state.user} 
+        </p> 
+        <p className="followerInfo">
+         {this.state.followers} Followers
+        </p>
+        <p className="followingInfo">
+          Following {this.state.following} users
+        </p>
+      </div>
+    }
+    let repo;
+    if(this.state.username) {
+    repo =
+      <div className="repoResults">
+         <p>
+           {this.state.name}
+        </p>
+      </div>
+    }
     return (
       <div className="App">
         <div className="App-header">
@@ -65,11 +83,17 @@ class App extends Component {
         <div className="App-intro">
           <hr />
           <p>Click on the button to fetch the user information</p>
-          <button onClick={this.getUserInformation.bind(this)}>
+          <button onClick={e => this.submitRequest(e)}>
             Click me
           </button>
+          <p className="Search-intro">
+                  {user}
+               </p>
+          <p>
+            {repo}
+          </p>
+          
         </div>
-        <UserInformation />
       </div>
     );
   }
