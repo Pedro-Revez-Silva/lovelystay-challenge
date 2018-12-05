@@ -30,6 +30,26 @@ class App extends Component {
     .then(response => {return response;})
   }
 
+  async submitRequest(e){
+    e.preventDefault();
+    let user = await this.getUserInformation(this.refs.user.value);
+    this.setState({avatar_url: user.avatar_url, 
+      username: 
+      user.login, 
+      followers: user.followers,
+      following: user.following,
+      url: user.url,
+    });
+    let repo = await this.getUserRepos(this.refs.user.value);
+        this.setState({ name: repo.name,
+        description: repo.description,
+        git_url: repo.git_url,
+        stargazers_count: repo.stargazers_count,
+        forks_count: repo.forks_count,
+        open_issues_count: repo.open_issues_count,
+        size: repo.size,
+     });
+  }
 
 
   render() {
