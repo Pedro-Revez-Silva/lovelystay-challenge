@@ -57,8 +57,10 @@ class App extends Component {
     return repos.map(item => {
       return <div key={item.id} className="repoResults">
         <p>
-          {item.name}
-          {item.desccription}
+          Name: {item.name}
+        </p>
+        <p>
+          Description: {item.description}
         </p>
       </div>
     })
@@ -67,7 +69,7 @@ class App extends Component {
   renderUser(user) {
     return (
       <div className="resultBadge">
-        <img src={user.avatar_url} />
+        <img src={user.avatar_url} alt='UserAvatar' />
         <p className="userInfo">
           Username: <br />
           {user.username}
@@ -97,7 +99,7 @@ class App extends Component {
         <div className="App-intro">
           <hr />
           <p>Click on the button to fetch the user information</p>
-          <button id ='button' ref='username' defaultValue='Pedro-Revez-Silva' onClick={e => this.submitRequest(e)}>
+          <button id='button' ref='username' defaultValue='Pedro-Revez-Silva' onClick={e => this.submitRequest(e)}>
             Click me
           </button>
           <div className="Search-intro">
