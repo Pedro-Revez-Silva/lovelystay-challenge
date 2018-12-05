@@ -7,10 +7,10 @@ class App extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { user: {username: 'Pedro-Revez-Silva'} }
+    this.state = { user: '' }
   }
 
-  getUserInformation() {
+  getUserInformation(user) {
     /*
       TODO: fetch a user from the GitHub API
 
@@ -19,15 +19,16 @@ class App extends Component {
          fetching resources (including across the network).
        2) Maybe you want to update the state here.
     */
-    fetch('https://api.github.com/users/Pedro-Revez-Silva')
+    return fetch('https://api.github.com/users/${user}')
     .then(response => response.json())
-    .then(
-      user => {
-        this.setState({user: user});
-      }
-    );
+    .then(response => {return response;})
   }
-    
+  
+  getUserRepos(user){
+    return fetch('https://api.github.com/users/${user}/repos')
+    .then(response => response.json())
+    .then(response => {return response;})
+  }
 
 
 
