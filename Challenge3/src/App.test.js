@@ -23,7 +23,7 @@ describe('the rendered div', () => {
 
 it('Always renders a button', () => {
   expect(App().find('button').length).toBeGreaterThan(1);
-})
+});
 
 /* TO-DO
 Implement tests with a mock API
